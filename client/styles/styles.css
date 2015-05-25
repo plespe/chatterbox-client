@@ -3,9 +3,12 @@ body {
     text-align: center;
     padding: 0 25px;
     font-family: arial, sans-serif;
+    position: relative;
+    font-size: 14px;
+    color: #31383B;
 }
 
-#main {
+#main, #messages {
     width: 500px;
     margin: auto;
     text-align: left;
@@ -13,6 +16,19 @@ body {
     padding: 50px 60px;
     border: solid #ddd;
     border-width: 0 1px 1px 1px;
+    box-shadow: 0px 1px 0px 0px #ddd;
+}
+
+#messages{
+    margin-top: 20px;
+}
+
+#messages h2 {
+    margin-top: 0;
+    font-size: 32px;
+    margin-bottom: 5px;
+    padding: 5px;
+    border-bottom: 1px solid #808f96;
 }
 
 #main h1 {
@@ -20,6 +36,7 @@ body {
     font-size: 35px;
     margin-bottom: 5px;
     padding: 5px;
+    border-bottom: 1px solid #808f96;
 }
 
 #main h1 span {
@@ -81,4 +98,30 @@ form input[type=text] {
 
 .spinner img {
     padding: 10px;
+}
+
+#user-input{
+    width: 489px;
+    height: 30px;
+    resize: none;
+    border-radius: 3px;
+    border: 1px solid #a5b0b4;
+    box-shadow: inset 0px -1px 0px 0px #d3d9db;
+    padding: 5px;
+    display: inline-block;
+    margin-bottom: 15px;
+    font-size: 14px;
+    margin-top: 30px;
+}
+#send-message{
+    display: block;
+    padding: 6px;
+    background: transparent;
+    border-radius: 3px;
+    border: 1px solid #38A668;
+    color: #38A668;
+    box-shadow: 0px 1px 0px 0px #4ec381;
+    position: relative;
+    left: 390px;
+    font-size: 14px;
 }
