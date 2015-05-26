@@ -114,8 +114,25 @@ var app = {
     //if the message user is in our list of friends
     //add extra class "friend"
     //with special CSS styling
-    var messageTemplate = '<div class="message"><span><a href="ADD DESTINATION HERE" class="username">' + message.username + '</a> to <a href="ADD DESTINATION HERE" class="roomname">' + message.roomname + '</a></span><p>' + message.text + '</p></div>';
-    $('#chats').prepend(messageTemplate);
+    // var clean = {};
+    // clean.text = sanitizer.sanitizeHTML(message.text);
+    // clean.username = sanitizer.sanitizeHTML(message.username);
+    // clean.roomname = sanitizer.sanitizeHTML(message.roomname);
+    // console.log(clean);
+
+    // $('#chats').prepend("div");
+    // var cleanMessage = $('div');
+    // cleanMessage.append(cleanText);
+    // cleanMessage.append(cleanName);
+    // cleanMessage.append(cleanRoom);
+    // $("<div class='message'>").insertAfter("#chats h2");
+    var cleanText = _.escape(message.text);
+    var cleanName = _.escape(message.username);
+    var cleanRoom = _.escape(message.roomname);
+
+    var messageTemplate = '<div class="message"><span><a href="ADD DESTINATION HERE" class="username">' + cleanName + '</a> to <a href="ADD DESTINATION HERE" class="roomname">' + cleanRoom + '</a></span><p>' + cleanText + '</p></div>';
+    $(messageTemplate).insertAfter("#chats h2");
+
   },
 
   addFriend: function(target) {
