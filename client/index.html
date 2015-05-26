@@ -8,6 +8,8 @@
     <!-- dependencies -->
     <script src="bower_components/jquery/jquery.min.js"></script>
     <script src="bower_components/underscore/underscore-min.js"></script>
+    <script src="simple-sanitizer/sanitizer.js"></script>
+
     <!-- your scripts -->
     <script src="env/config.js"></script>
     <script src="scripts/app.js"></script>
@@ -18,8 +20,14 @@
     <div id="main">
       <h1>chatterbox</h1>
       <!-- Your HTML goes here! -->
+      <div>
+      <select id="room-selector">
+        <option selected>Choose a Room</option>
+        <option value="main">Main</option>
+        </select>
       <textarea id="user-input" type="text" placeholder="Type your message here..."></textarea>
       <button id="send-message">Send Message</button>
+      </div>
     </div>
     <div id="chats">
       <h2>messages</h2>

@@ -20,6 +20,25 @@ var app = {
   friends: [],
 
   init: function() {
+    $(document).ready(function(){
+      $("#send-message").on("click", function(event){
+        var message = {};
+        message.text = $("#user-input").text();
+        message.username = window.location.search.slice(10);
+        message.roomname = "main";
+        app.send(message);
+        $("user-input").text("Write something here");
+        console.log("button works");
+      });
+
+
+
+
+
+
+
+
+    });
     // document ready loop to make sure DOM loaded
     // fetch messages from the server
     // if there's no room selected
@@ -36,6 +55,7 @@ var app = {
   },
   // message should adhere to above format
   send: function(message) {
+    console.log("inside send");
     $.ajax({
       url: app.server,
       type: 'POST',
@@ -57,8 +77,8 @@ var app = {
       url: app.server,
       type: 'GET',
       dataFilter: function(rawData){
-        // sanitize stuff here
-        // return sanitized jsonp
+        var sanitizedData = sanitizer.sanitizeHTML(rawData);
+        return sanitizedData;
       },
       dataType: 'jsonp',
       success: function(data) {
@@ -112,7 +132,4 @@ var app = {
 
 };
 
-var showMessage = function(message){
-  var messageTemplate = '<div class="message"><span class="username"><a href="ADD DESTINATION HERE">' + message.username + '</a> to <a href="ADD DESTINATION HERE">' + message.roomname + '</a></span><p>' + message.text + '</p></div>';
-  $('#chats').addElement(messageTemplate);
-};
+app.init();

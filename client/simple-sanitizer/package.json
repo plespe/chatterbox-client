@@ -1,0 +1,51 @@
+{
+  "name": "simple-sanitizer",
+  "version": "0.4.6",
+  "description": "A small quick and effective client side javascript html sanitizer.",
+  "main": "sanitizer.js",
+  "scripts": {
+    "test": "./node_modules/karma/bin/karma start ./karma.conf.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:dortzur/simple-sanitizer.git"
+  },
+  "keywords": [
+    "sanitize",
+    "sanitizer",
+    "html sanitizer",
+    "simple",
+    "client sanitizer"
+  ],
+  "author": {
+    "name": "Dor Tzur"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/dortzur/simple-sanitizer/issues"
+  },
+  "directories": {
+    "test": "test"
+  },
+  "homepage": "https://github.com/dortzur/simple-sanitizer",
+  "devDependencies": {
+    "chai": "^1.10.0",
+    "chai-string": "^1.1.0",
+    "istanbul": "^0.3.5",
+    "karma": "^0.12.31",
+    "karma-chai": "^0.1.0",
+    "karma-chrome-launcher": "^0.1.8",
+    "karma-coverage": "^0.3.1",
+    "karma-html-reporter": "^0.2.6",
+    "karma-mocha": "^0.1.10",
+    "karma-phantomjs-launcher": "^0.1.4",
+    "mocha": "^2.0.1",
+    "phantomjs": "^1.9.16",
+    "sinon": "^1.12.1"
+  },
+  "dependencies": {},
+  "readme": "# Simple Sanitizer\nA small, quick, standalone and effective client side javascript html sanitizer.\n\nA shameless port of [ngSanitize](https://docs.angularjs.org/api/ngSanitize) to normal javascript, zero dependencies required.\n\n## Usage\n\n```\n\tvar safeHTML = sanitizer.sanitizeHTML(dangerousHTML);\n```\n\nYou can also sanitize URIs for images, links etc:\n\n\n```\n\tvar safeUri = sanitizer.sanitizeUri(dangerousUri);\n```\n\n\n## License\n\nMIT, see [LICENSE](https://github.com/dortzur/simple-sanitizer/blob/master/LICENSE) for details.\n",
+  "readmeFilename": "README.md",
+  "_id": "simple-sanitizer@0.4.6",
+  "_from": "simple-sanitizer@"
+}
