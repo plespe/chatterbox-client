@@ -31,6 +31,8 @@ var app = {
         console.log("button works");
       });
 
+      // $("")
+
 
 
 
@@ -60,8 +62,8 @@ var app = {
       url: app.server,
       type: 'POST',
       data: JSON.stringify(message),
-      dataType: 'jsonp',
-      //clear the text window?
+      contentType: 'application/json',
+      // //clear the text window?
       success: function() {
         console.log("success");
       },
