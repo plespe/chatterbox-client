@@ -8,7 +8,7 @@ body {
     color: #31383B;
 }
 
-#main, #messages {
+#main, #chats {
     width: 500px;
     margin: auto;
     text-align: left;
@@ -19,11 +19,11 @@ body {
     box-shadow: 0px 1px 0px 0px #b8c0c4;
 }
 
-#messages{
+#chats{
     margin-top: 20px;
 }
 
-#messages h2 {
+#chats h2 {
     margin-top: 0;
     font-size: 32px;
     margin-bottom: 5px;

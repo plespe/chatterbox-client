@@ -21,6 +21,7 @@ var app = {
 
   init: function() {
     $(document).ready(function(){
+      app.fetch();
       $("#send-message").on("click", function(event){
         var message = {};
         message.text = $("#user-input").text();
@@ -30,7 +31,6 @@ var app = {
         $("user-input").text("Write something here");
         console.log("button works");
       });
-
       // $("")
 
 
@@ -74,24 +74,37 @@ var app = {
   },
 
   fetch: function() {
-    //escape malicious HTML here
     $.ajax({
       url: app.server,
       type: 'GET',
-      dataFilter: function(rawData){
-        var sanitizedData = sanitizer.sanitizeHTML(rawData);
-        return sanitizedData;
+      // contentType: 'application/json',
+      // dataFilter: function(rawData){
+      //   var sanitizedData = sanitizer.sanitizeHTML(rawData);
+      //   var messages = JSON.parse(sanitizedData);
+      //   console.log(messages);
+      //   return sanitizedData;
+      // },
+      //maybe?
+      // dataType: 'jsonp',
+      success: function(data, type) {
+        // debugger;
+        console.log("yes?");
+        _.each(data.results, function(message){
+          app.addMessage(message);
+        });
+
+        console.log(data);
+
+        // var sanitizedData = sanitizer.sanitizeHTML(data);
+        // var messages = $.parseJSON(data);
+        // console.log(messages);
+        // var messages = JSON.parse(data);
+        // for (var key in messages){
+        // }
       },
-      dataType: 'jsonp',
-      success: function(data) {
-        debugger;
-        var messages = JSON.parse(data);
-        for (var key in messages){
-          app.addMessage(messages[key]);
-        }
-      },
-      error: function() {
-        console.log("failure");
+      error: function(data, status) {
+        console.log(data);
+        console.log(status);
       }
     });
   },
