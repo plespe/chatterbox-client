@@ -100,7 +100,7 @@ form input[type=text] {
     padding: 10px;
 }
 
-#user-input{
+#text-input{
     width: 489px;
     height: 30px;
     resize: none;
@@ -124,4 +124,7 @@ form input[type=text] {
     position: relative;
     left: 390px;
     font-size: 14px;
+}
+.friend {
+    font-weight: bold;
 }

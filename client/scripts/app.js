@@ -19,45 +19,58 @@ var app = {
 
   friends: [],
 
+  currentRoom: "All Rooms",
+
   init: function() {
     $(document).ready(function(){
-      app.fetch();
       $("#send-message").on("click", function(event){
         var message = {};
-        message.text = $("#user-input").text();
+        message.text = $("#text-input").val();
         message.username = window.location.search.slice(10);
-        message.roomname = "main";
+        message.roomname = $('#room-selector').val();
+        app.clearMessages();
         app.send(message);
-        $("user-input").text("Write something here");
-        console.log("button works");
+        app.fetch();
+        $("#text-input").val("");
+
       });
       // $("")
 
+      $("body").on("click", ".username", function(event){
 
+        event.preventDefault();
 
+        var element = $(this);
+        console.log(element.text());
+        app.friends.push(element.text());
+        app.clearMessages();
+        app.fetch();
+      });
 
+      $("body").on("change", "#room-selector", function(event){
+        // $("option:selected").prop("selected", false);
+        var selection = $(this).val();
+        if(selection === "create") {
+          var newRoom = _.escape(prompt("Pick a room name"));
+          app.currentRoom = newRoom;
+          var newOption = $("<option value ='" + newRoom + "'>" + newRoom + "</option>");
+          newOption.prop("selected", true);
+          newOption.prependTo($(this));
+        } else {
+          app.currentRoom = selection;
+          $(this).prop("selected", true);
+        }
+        app.clearMessages();
+        app.fetch();
+      });
 
-
-
+      app.fetch();
 
     });
-    // document ready loop to make sure DOM loaded
-    // fetch messages from the server
-    // if there's no room selected
-      // fetch all messages and display
-    // else
-      // fetch all messages and only display for current room
 
-    // add event listeners for button clicks
-      // send message
-        // post to server
-        // fetch from server
-      // create room
-      // username
   },
-  // message should adhere to above format
+
   send: function(message) {
-    console.log("inside send");
     $.ajax({
       url: app.server,
       type: 'POST',
@@ -77,30 +90,12 @@ var app = {
     $.ajax({
       url: app.server,
       type: 'GET',
-      // contentType: 'application/json',
-      // dataFilter: function(rawData){
-      //   var sanitizedData = sanitizer.sanitizeHTML(rawData);
-      //   var messages = JSON.parse(sanitizedData);
-      //   console.log(messages);
-      //   return sanitizedData;
-      // },
-      //maybe?
-      // dataType: 'jsonp',
       success: function(data, type) {
-        // debugger;
         console.log("yes?");
         _.each(data.results, function(message){
           app.addMessage(message);
         });
-
         console.log(data);
-
-        // var sanitizedData = sanitizer.sanitizeHTML(data);
-        // var messages = $.parseJSON(data);
-        // console.log(messages);
-        // var messages = JSON.parse(data);
-        // for (var key in messages){
-        // }
       },
       error: function(data, status) {
         console.log(data);
@@ -111,27 +106,27 @@ var app = {
 
   // message should adhere to above format
   addMessage: function(message) {
-    //if the message user is in our list of friends
-    //add extra class "friend"
-    //with special CSS styling
-    // var clean = {};
-    // clean.text = sanitizer.sanitizeHTML(message.text);
-    // clean.username = sanitizer.sanitizeHTML(message.username);
-    // clean.roomname = sanitizer.sanitizeHTML(message.roomname);
-    // console.log(clean);
 
-    // $('#chats').prepend("div");
-    // var cleanMessage = $('div');
-    // cleanMessage.append(cleanText);
-    // cleanMessage.append(cleanName);
-    // cleanMessage.append(cleanRoom);
-    // $("<div class='message'>").insertAfter("#chats h2");
     var cleanText = _.escape(message.text);
     var cleanName = _.escape(message.username);
     var cleanRoom = _.escape(message.roomname);
+    var friendClass = "";
 
-    var messageTemplate = '<div class="message"><span><a href="ADD DESTINATION HERE" class="username">' + cleanName + '</a> to <a href="ADD DESTINATION HERE" class="roomname">' + cleanRoom + '</a></span><p>' + cleanText + '</p></div>';
-    $(messageTemplate).insertAfter("#chats h2");
+    if (app.friends.indexOf(cleanName) > -1 ){
+      friendClass = " friend";
+    }
+
+    console.log(app.currentRoom);
+
+    if (app.currentRoom === "All Rooms"){
+      var messageTemplate = '<div class="message' + friendClass + '"><span><a class="username" href="#">' + cleanName + '</a> to <a class="roomname">' + cleanRoom + '</a></span><p>' + cleanText + '</p></div>';
+      $(messageTemplate).insertAfter("#chats h2");
+    } else if (cleanRoom === app.currentRoom){
+      var messageTemplate = '<div class="message' + friendClass + '"><span><a class="username" href="#">' + cleanName + '</a> to <a class="roomname">' + cleanRoom + '</a></span><p>' + cleanText + '</p></div>';
+      $(messageTemplate).insertAfter("#chats h2");
+    } else {
+      return;
+    }
 
   },
 
@@ -151,6 +146,7 @@ var app = {
 
   clearMessages: function() {
     $("#chats").empty();
+    $("#chats").append("<h2>Messages</h2>");
   },
 
   addRoom: function(name) {
